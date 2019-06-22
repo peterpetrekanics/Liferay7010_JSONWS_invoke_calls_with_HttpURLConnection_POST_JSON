@@ -27,7 +27,7 @@ public class ClientWithAuthAndJson {
 
 	public static void main(String[] args) throws JSONException, IOException {
 		try {
-			String username = "test@liferay.com";
+			String username = "test2@liferay.com";
 			String password = "test";
 
 			String authCredentials = new String(username + ":" + password);
@@ -73,11 +73,37 @@ public class ClientWithAuthAndJson {
 //			jsonObjectParent.put("/user/get-group-users", jsonObject);
 
 			//user/get-user-by-id
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("userId", 20155);
-			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/user/get-user-by-id", jsonObject);
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("userId", 20155);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/user/get-user-by-id", jsonObject);
 			
+			//user/get-current-user
+			// Only started to work once I have visited this on the UI:
+			// Liferay server UI / Control Panel / Configuration / Service Access Policy
+			// and set up the com.liferay.portal.kernel.service.UserService  +  getUserByScreenName
+			// method as "allowed service". Otherwise there is a 403 error
+//			JSONObject jsonObject = new JSONObject();
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/user/get-current-user", jsonObject);
+			
+			//journal.journalarticle/get-articles
+			// This also requires enablement in the Service Access Policies
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("groupId", 20142);
+			jsonObject.put("folderId", 0);
+			jsonObject.put("start", -1);
+			jsonObject.put("end", -1);
+			jsonObject.put("odb", "");
+			JSONObject jsonObjectParent = new JSONObject();
+			jsonObjectParent.put("/journal.journalarticle/get-articles", jsonObject);
+
+			//journal.journalarticle/add-article
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("userId", 20155);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/user/get-user-by-id", jsonObject);
+
 			
 			
 			
