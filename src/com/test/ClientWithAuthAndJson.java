@@ -58,14 +58,30 @@ public class ClientWithAuthAndJson {
 			conn.setRequestProperty("charset", "utf-8");
 
 			// set up the data to send
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("companyId", 20115);
-			jsonObject.put("screenName", "test");
-			// jsonObject.put("emailAddr", "test@liferay.com");
-			// jsonObject.put("method", "get-user-id-by-screen-name");
-			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/user/get-user-id-by-screen-name", jsonObject);
+			
+			//user/get-user-id-by-screen-name
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("companyId", 20115);
+//			jsonObject.put("screenName", "test");
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/user/get-user-id-by-screen-name", jsonObject);
+			
+			//user/get-group-users
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/user/get-group-users", jsonObject);
 
+			//user/get-user-by-id
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("userId", 20155);
+			JSONObject jsonObjectParent = new JSONObject();
+			jsonObjectParent.put("/user/get-user-by-id", jsonObject);
+			
+			
+			
+			
+			
 			// Wrapping the json parameters in a parent json object according to:
 			// https://portal.liferay.dev/docs/7-0/tutorials/-/knowledge_base/t/json-web-services-invoker#simple-invoker-calls
 			// Note: the p_auth parameter does not need to be added because we
