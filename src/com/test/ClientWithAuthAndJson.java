@@ -104,15 +104,23 @@ public class ClientWithAuthAndJson {
 			// Plus, I received this error after that:
 			// User 20119 must have ADD_RECORD permission for com.liferay.dynamic.data.lists.model.DDLRecordSet 40745
 			// As a workaround I used the omniadmin user to start this app which solved the permission issue.
-	        String fieldsMap = "{\"b\":\"c\"}";
+			// To check how to fill the fieldsMap, pls check the database:  DDMContent.data_  column
+//	        String fieldsMap = "{\"b\":\"c\"}";
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			jsonObject.put("recordSetId", 40745);
+//			jsonObject.put("displayIndex", 0);
+//			jsonObject.put("fieldsMap", fieldsMap);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/ddl.ddlrecord/add-record", jsonObject);
+
+			//trashentry/delete-entries
+			// Looks like this service does not need to be enabled in the Service Access Policies
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("groupId", 20142);
-			jsonObject.put("recordSetId", 40745);
-			jsonObject.put("displayIndex", 0);
-			jsonObject.put("fieldsMap", fieldsMap);
 			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/ddl.ddlrecord/add-record", jsonObject);
-
+			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
+			
 			//journal.journalarticle/add-article
 //	        String titleMap = "{\"en_US\":\"Title SG\"}";
 //	        String descriptionMap = "{\"en_US\":\"Description SG\"}";
@@ -133,7 +141,7 @@ public class ClientWithAuthAndJson {
 //	        int displayDateHour = calendar.get(Calendar.HOUR_OF_DAY);
 //	        int displayDateMinute = calendar.get(Calendar.MINUTE);
 //	        
-//	        String images = "screenshot.png";
+//	        String images = "{\"b\":\"c\"}";
 //	        String serviceContext = "{\"addGroupPermissions\":false" +
 //	                ",\"addGuestPermissions\":false" +
 //	                ", \"scopeGroupId\":20142\"}";
