@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ClientWithAuthAndJson {
 
 	public static void main(String[] args) throws JSONException, IOException {
 		try {
-			String username = "test2@liferay.com";
+			String username = "test@liferay.com";
 			String password = "test";
 
 			String authCredentials = new String(username + ":" + password);
@@ -89,20 +90,94 @@ public class ClientWithAuthAndJson {
 			
 			//journal.journalarticle/get-articles
 			// This also requires enablement in the Service Access Policies
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			jsonObject.put("folderId", 0);
+//			jsonObject.put("start", -1);
+//			jsonObject.put("end", -1);
+//			jsonObject.put("odb", "");
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/journal.journalarticle/get-articles", jsonObject);
+
+			//ddl.ddlrecord/add-record
+			// This also requires enablement in the Service Access Policies
+			// Plus, I received this error after that:
+			// User 20119 must have ADD_RECORD permission for com.liferay.dynamic.data.lists.model.DDLRecordSet 40745
+			// As a workaround I used the omniadmin user to start this app which solved the permission issue.
+	        String fieldsMap = "{\"b\":\"c\"}";
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("groupId", 20142);
-			jsonObject.put("folderId", 0);
-			jsonObject.put("start", -1);
-			jsonObject.put("end", -1);
-			jsonObject.put("odb", "");
+			jsonObject.put("recordSetId", 40745);
+			jsonObject.put("displayIndex", 0);
+			jsonObject.put("fieldsMap", fieldsMap);
 			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/journal.journalarticle/get-articles", jsonObject);
+			jsonObjectParent.put("/ddl.ddlrecord/add-record", jsonObject);
 
 			//journal.journalarticle/add-article
-//			JSONObject jsonObject = new JSONObject();
-//			jsonObject.put("userId", 20155);
+//	        String titleMap = "{\"en_US\":\"Title SG\"}";
+//	        String descriptionMap = "{\"en_US\":\"Description SG\"}";
+//	        String uuid = "79c257d5-05b4-3c95-fa61-5c5c4710ee9d";
+//	        String content = "<root available-locales=\"en_US\" default-locale=\"en_US\"><dynamic-element "
+//	                + "instance-id=\"random\" language-id=\"en_US\"  name=\"image\" type=\"image\" index-type=\"text\"><dynamic-content "
+//	                + "id=\"38897\">"
+//	                + "</dynamic-content></dynamic-element></root>";
+//	        String content = "<root available-locales=\"en_US\" default-locale=\"en_US\"><dynamic-element "
+//	        		+ "instance-id=\"random\" language-id=\"en_US\"  name=\"image\" type=\"image\" index-type=\"text\"><dynamic-content "
+//	        		+ "id=\"38897\">documents/" + 20142 + "/"+ 0 + "/"+ "screenshot.png" + "/" + uuid
+//	        		+ "</dynamic-content></dynamic-element></root>";
+
+//	        Calendar calendar = Calendar.getInstance();
+//	        int displayDateMonth = calendar.get(Calendar.MONTH);
+//	        int displayDateDay = calendar.get(Calendar.DAY_OF_MONTH-1);
+//	        int displayDateYear = calendar.get(Calendar.YEAR);
+//	        int displayDateHour = calendar.get(Calendar.HOUR_OF_DAY);
+//	        int displayDateMinute = calendar.get(Calendar.MINUTE);
+//	        
+//	        String images = "screenshot.png";
+//	        String serviceContext = "{\"addGroupPermissions\":false" +
+//	                ",\"addGuestPermissions\":false" +
+//	                ", \"scopeGroupId\":20142\"}";
+//	        
+//	        JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			jsonObject.put("folderId", 0);
+//			jsonObject.put("classNameId", 0);
+//			jsonObject.put("classPK", 0);
+//			jsonObject.put("articleId", 0);
+//			jsonObject.put("autoArticleId", true);
+//			jsonObject.put("titleMap", titleMap);
+//			jsonObject.put("descriptionMap", descriptionMap);
+//			jsonObject.put("content", content);
+//			jsonObject.put("type", "general");
+//			jsonObject.put("ddmStructureKey", 36675);
+//			jsonObject.put("ddmTemplateKey", 36679);
+//			jsonObject.put("layoutUuid", "");
+//			jsonObject.put("displayDateMonth", displayDateMonth);
+//			jsonObject.put("displayDateDay", displayDateDay);
+//			jsonObject.put("displayDateYear", displayDateYear);
+//			jsonObject.put("displayDateHour", displayDateHour);
+//			jsonObject.put("displayDateMinute", displayDateMinute);
+//			jsonObject.put("expirationDateMonth", 0);
+//			jsonObject.put("expirationDateDay", 0);
+//			jsonObject.put("expirationDateYear", 0);
+//			jsonObject.put("expirationDateHour", 0);
+//			jsonObject.put("expirationDateMinute", 0);
+//			jsonObject.put("neverExpire", true);
+//			jsonObject.put("reviewDateMonth", 0);
+//			jsonObject.put("reviewDateDay", 0);
+//			jsonObject.put("reviewDateYear", 0);
+//			jsonObject.put("reviewDateHour", 0);
+//			jsonObject.put("reviewDateMinute", 0);
+//			jsonObject.put("neverReview", true);
+//			jsonObject.put("indexable", true);
+//			jsonObject.put("smallImage", false);
+//			jsonObject.put("smallImageURL", "");
+//			jsonObject.put("smallFile", "");
+//			jsonObject.put("images", images);
+//			jsonObject.put("articleURL",0);
+//			jsonObject.put("serviceContext", serviceContext);
 //			JSONObject jsonObjectParent = new JSONObject();
-//			jsonObjectParent.put("/user/get-user-by-id", jsonObject);
+//			jsonObjectParent.put("/journal.journalarticle/add-article", jsonObject);
 
 			
 			
