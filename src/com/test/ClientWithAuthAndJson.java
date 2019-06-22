@@ -2,6 +2,7 @@ package com.test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,15 +11,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import jodd.io.FileUtil;
 
 // Working version. To import dependenies: right-click on the Eclipse project, select:
 // Build Path / configure build path / libraries / add jars  and select your .jar files.
@@ -53,7 +59,9 @@ public class ClientWithAuthAndJson {
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//			String boundary = "---------------------------" + System.currentTimeMillis();
+//			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary );
+//			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			conn.setRequestProperty("Authorization", "Basic " + base64AuthCredentials);
 			conn.setRequestProperty("Accept", "application/json");
 			conn.setRequestProperty("charset", "utf-8");
@@ -116,10 +124,10 @@ public class ClientWithAuthAndJson {
 
 			//trashentry/delete-entries
 			// Looks like this service does not need to be enabled in the Service Access Policies
-//			JSONObject jsonObject = new JSONObject();
-//			jsonObject.put("groupId", 20142);
-//			JSONObject jsonObjectParent = new JSONObject();
-//			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("groupId", 20142);
+			JSONObject jsonObjectParent = new JSONObject();
+			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
 			
 			//dlapp/get-folders-and-file-entries-and-file-shortcuts
 //			JSONObject jsonObject = new JSONObject();
@@ -132,26 +140,76 @@ public class ClientWithAuthAndJson {
 //			JSONObject jsonObjectParent = new JSONObject();
 //			jsonObjectParent.put("/dlapp/get-folders-and-file-entries-and-file-shortcuts", jsonObject);
 			
-			//dlapp/update-file-entry
+			//dlapp/update-file-entry  <-- Partly working - the file uploading part is not working
 			// Executing this code part made it clear that the boolean does not need to be wrapped in double quotes
-	        String serviceContext = "{\"addGroupPermissions\":false" +
-	                ",\"addGuestPermissions\":false" +
-	                ", \"scopeGroupId\":20142\"}";
-	    	
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("fileEntryId", 40905);
-			jsonObject.put("sourceFileName", "holiday.png");
-			jsonObject.put("mimeType", "image/png");
-			jsonObject.put("title", "holiday.png");
-			jsonObject.put("description", "");
-			jsonObject.put("changeLog", "");
-			jsonObject.put("majorVersion", true);
-			jsonObject.put("file", "");
-			jsonObject.put("serviceContext ", serviceContext);
-			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/dlapp/update-file-entry", jsonObject);
+			// However specifying a File as a json object did not work yet, only 50 bytes get transfered
+//			File myFile = new File("/home/peterpetrekanics/Pictures/inProgressLesa.png");
+//	        
+//			String serviceContext = "{\"addGroupPermissions\":false" +
+//	                ",\"addGuestPermissions\":false" +
+//	                ", \"scopeGroupId\":20142\"}";
+//	    	
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("fileEntryId", 40905);
+//			jsonObject.put("sourceFileName", "inProgressLesa.png");
+//			jsonObject.put("mimeType", "image/png");
+//			jsonObject.put("title", "inProgressLesa.png");
+//			jsonObject.put("description", "");
+//			jsonObject.put("changeLog", "");
+//			jsonObject.put("majorVersion", true);
+//			jsonObject.put("file", myFile);
+//			jsonObject.put("serviceContext ", serviceContext);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/dlapp/update-file-entry", jsonObject);
 			
-			//journal.journalarticle/add-article
+			
+			//dlapp/add-file-entry  <-- NOT working, I believe a multipart request has to be used for file uploading
+//			File myFile = new File("/home/peterpetrekanics/Pictures/inProgressLesa.png");
+//			System.out.println("size: " + myFile.length());
+//	        byte[] bytes = FileUtil.readBytes(myFile);
+//
+//			String serviceContext = "{\"addGroupPermissions\":false" +
+//	                ",\"addGuestPermissions\":false" +
+//	                ", \"scopeGroupId\":20142\"}";
+//	    	
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("repositoryId", 20142);
+//			jsonObject.put("folderId", 40901);
+//			jsonObject.put("sourceFileName", "inProgressLesa.png");
+//			jsonObject.put("mimeType", "image/png");
+//			jsonObject.put("title", "inProgressLesa.png");
+//			jsonObject.put("description", "");
+//			jsonObject.put("changeLog", "");
+//			jsonObject.put("bytes", bytes);
+//			jsonObject.put("serviceContext ", serviceContext);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/dlapp/add-file-entry", jsonObject);
+
+			//dlapp/add-file-entry  <-- NOT working, I believe a multipart request has to be used for file uploading
+			// Maybe whenever a file is included in my method I need to use the multipart header
+//			File myFile = new File("/home/peterpetrekanics/Pictures/inProgressLesa.png");
+//			System.out.println("size: " + myFile.length());
+//	        byte[] bytes = FileUtil.readBytes(myFile);
+//
+//			String serviceContext = "{\"addGroupPermissions\":false" +
+//	                ",\"addGuestPermissions\":false" +
+//	                ", \"scopeGroupId\":20142\"}";
+//	    	
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("repositoryId", 20142);
+//			jsonObject.put("folderId", 40901);
+//			jsonObject.put("sourceFileName", "inProgressLesa.png");
+//			jsonObject.put("mimeType", "image/png");
+//			jsonObject.put("title", "inProgressLesa.png");
+//			jsonObject.put("description", "");
+//			jsonObject.put("changeLog", "");
+//			jsonObject.put("file", new FileBody(myFile));
+//			jsonObject.put("serviceContext ", serviceContext);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/dlapp/add-file-entry", jsonObject);
+
+			
+			//journal.journalarticle/add-article  <-- NOT working, I believe a multipart request has to be used for file uploading
 //	        String titleMap = "{\"en_US\":\"Title SG\"}";
 //	        String descriptionMap = "{\"en_US\":\"Description SG\"}";
 //	        String uuid = "79c257d5-05b4-3c95-fa61-5c5c4710ee9d";

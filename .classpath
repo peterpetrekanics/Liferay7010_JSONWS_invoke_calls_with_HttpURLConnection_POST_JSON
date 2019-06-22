@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_191"/>
 	<classpathentry kind="lib" path="lib/json-java.jar"/>
+	<classpathentry kind="lib" path="lib/jodd-core-5.0.12.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.5.9.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
