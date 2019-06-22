@@ -116,10 +116,40 @@ public class ClientWithAuthAndJson {
 
 			//trashentry/delete-entries
 			// Looks like this service does not need to be enabled in the Service Access Policies
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
+			
+			//dlapp/get-folders-and-file-entries-and-file-shortcuts
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("repositoryId", 20142);
+//			jsonObject.put("folderId", 0);
+//			jsonObject.put("status", 0);
+//			jsonObject.put("includeMountFolders", false);
+//			jsonObject.put("start", -1);
+//			jsonObject.put("end", -1);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/dlapp/get-folders-and-file-entries-and-file-shortcuts", jsonObject);
+			
+			//dlapp/update-file-entry
+			// Executing this code part made it clear that the boolean does not need to be wrapped in double quotes
+	        String serviceContext = "{\"addGroupPermissions\":false" +
+	                ",\"addGuestPermissions\":false" +
+	                ", \"scopeGroupId\":20142\"}";
+	    	
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("groupId", 20142);
+			jsonObject.put("fileEntryId", 40905);
+			jsonObject.put("sourceFileName", "holiday.png");
+			jsonObject.put("mimeType", "image/png");
+			jsonObject.put("title", "holiday.png");
+			jsonObject.put("description", "");
+			jsonObject.put("changeLog", "");
+			jsonObject.put("majorVersion", true);
+			jsonObject.put("file", "");
+			jsonObject.put("serviceContext ", serviceContext);
 			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
+			jsonObjectParent.put("/dlapp/update-file-entry", jsonObject);
 			
 			//journal.journalarticle/add-article
 //	        String titleMap = "{\"en_US\":\"Title SG\"}";
@@ -145,7 +175,7 @@ public class ClientWithAuthAndJson {
 //	        String serviceContext = "{\"addGroupPermissions\":false" +
 //	                ",\"addGuestPermissions\":false" +
 //	                ", \"scopeGroupId\":20142\"}";
-//	        
+	        
 //	        JSONObject jsonObject = new JSONObject();
 //			jsonObject.put("groupId", 20142);
 //			jsonObject.put("folderId", 0);
