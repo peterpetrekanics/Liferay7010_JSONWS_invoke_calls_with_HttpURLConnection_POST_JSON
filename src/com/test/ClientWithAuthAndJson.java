@@ -124,10 +124,10 @@ public class ClientWithAuthAndJson {
 
 			//trashentry/delete-entries
 			// Looks like this service does not need to be enabled in the Service Access Policies
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("groupId", 20142);
-			JSONObject jsonObjectParent = new JSONObject();
-			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
+//			JSONObject jsonObject = new JSONObject();
+//			jsonObject.put("groupId", 20142);
+//			JSONObject jsonObjectParent = new JSONObject();
+//			jsonObjectParent.put("/trashentry/delete-entries", jsonObject);
 			
 			//dlapp/get-folders-and-file-entries-and-file-shortcuts
 //			JSONObject jsonObject = new JSONObject();
@@ -143,24 +143,24 @@ public class ClientWithAuthAndJson {
 			//dlapp/update-file-entry  <-- Partly working - the file uploading part is not working
 			// Executing this code part made it clear that the boolean does not need to be wrapped in double quotes
 			// However specifying a File as a json object did not work yet, only 50 bytes get transfered
-//			File myFile = new File("/home/peterpetrekanics/Pictures/inProgressLesa.png");
-//	        
-//			String serviceContext = "{\"addGroupPermissions\":false" +
-//	                ",\"addGuestPermissions\":false" +
-//	                ", \"scopeGroupId\":20142\"}";
-//	    	
-//			JSONObject jsonObject = new JSONObject();
-//			jsonObject.put("fileEntryId", 40905);
-//			jsonObject.put("sourceFileName", "inProgressLesa.png");
-//			jsonObject.put("mimeType", "image/png");
-//			jsonObject.put("title", "inProgressLesa.png");
-//			jsonObject.put("description", "");
-//			jsonObject.put("changeLog", "");
-//			jsonObject.put("majorVersion", true);
-//			jsonObject.put("file", myFile);
-//			jsonObject.put("serviceContext ", serviceContext);
-//			JSONObject jsonObjectParent = new JSONObject();
-//			jsonObjectParent.put("/dlapp/update-file-entry", jsonObject);
+			File myFile = new File("/home/peterpetrekanics/Pictures/inProgressLesa.png");
+	        
+			String serviceContext = "{\"addGroupPermissions\":false" +
+	                ",\"addGuestPermissions\":false" +
+	                ", \"scopeGroupId\":20142\"}";
+	    	
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("fileEntryId", 40905);
+			jsonObject.put("sourceFileName", "inProgressLesa.png");
+			jsonObject.put("mimeType", "image/png");
+			jsonObject.put("title", "inProgressLesa.png");
+			jsonObject.put("description", "");
+			jsonObject.put("changeLog", "");
+			jsonObject.put("majorVersion", true);
+			jsonObject.put("file", myFile);
+			jsonObject.put("serviceContext ", serviceContext);
+			JSONObject jsonObjectParent = new JSONObject();
+			jsonObjectParent.put("/dlapp/update-file-entry", jsonObject);
 			
 			
 			//dlapp/add-file-entry  <-- NOT working, I believe a multipart request has to be used for file uploading
